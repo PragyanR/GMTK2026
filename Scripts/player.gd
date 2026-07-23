@@ -20,6 +20,8 @@ var movement_enabled : bool = true
 @onready var particle_trails = $ParticleTrails
 @onready var death_particles = $DeathParticles
 
+
+
 # --------- BUILT-IN FUNCTIONS ---------- #
 
 func _physics_process(_delta):
@@ -47,6 +49,13 @@ func movement():
 		inputAxis = Input.get_axis("Left", "Right")
 	velocity.x = inputAxis * move_speed
 	move_and_slide()
+	
+	for i in get_slide_collision_count():
+		var collision = get_slide_collision(i)
+		var collider = collision.get_collider()
+		if collider is RigidBody2D:
+			var push_dir = -collision.get_normal()
+			collider.apply_central_impulse(push_dir * move_speed * 0.05)
 
 # Handles jumping functionality (double jump or single jump, can be toggled from inspector)
 func handle_jumping():
@@ -62,7 +71,8 @@ func jump():
 	jump_tween()
 	AudioManager.jump_sfx.play()
 	velocity.y = -jump_force
-
+	
+	
 # Handle Player Animations
 func player_animations():
 	particle_trails.emitting = false
@@ -95,6 +105,18 @@ func death_tween():
 	movement_enabled = true
 	AudioManager.respawn_sfx.play()
 	respawn_tween()
+	
+func level_complete_tween():
+	movement_enabled = false
+	var tween = create_tween()
+	tween.tween_property(player_sprite, "scale", Vector2.ZERO, 0.15)
+	tween.parallel().tween_property(player_sprite, "position", Vector2.ZERO, 0.15)
+	await tween.finished
+	global_position = spawn_point.global_position
+	await get_tree().create_timer(0.3).timeout
+	movement_enabled = true
+	AudioManager.respawn_sfx.play()
+	respawn_tween()
 
 func respawn_tween():
 	var tween = create_tween()
@@ -107,11 +129,16 @@ func jump_tween():
 	tween.tween_property(self, "scale", Vector2(0.7, 1.4), 0.1)
 	tween.tween_property(self, "scale", Vector2.ONE, 0.1)
 
+func death_manager():
+	AudioManager.death_sfx.play()
+	death_particles.emitting = true
+	push_warning("death_man")
+	GameManager.spawn_body(global_position)
+	death_tween()
+	
 # --------- SIGNALS ---------- #
 
 # Reset the player's position to the current level spawn point if collided with any trap
 func _on_collision_body_entered(body):
 	if body.is_in_group("Traps"):
-		AudioManager.death_sfx.play()
-		death_particles.emitting = true
-		death_tween()
+		death_manager()

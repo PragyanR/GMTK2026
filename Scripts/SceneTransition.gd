@@ -26,3 +26,5 @@ func transition_animation(animation_name: String, scene: PackedScene):
 	await scene_transition_anim.animation_finished
 	get_tree().change_scene_to_packed(scene)
 	scene_transition_anim.play_backwards(animation_name)
+	
+	

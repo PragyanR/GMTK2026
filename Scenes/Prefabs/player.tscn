@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://w7m6tehvvy3g"]
+[gd_scene format=3 uid="uid://w7m6tehvvy3g"]
 
 [ext_resource type="Script" uid="uid://ba2umthd5ts2v" path="res://Scripts/player.gd" id="1_qt7d6"]
 [ext_resource type="Texture2D" uid="uid://cbss87b7xk5lc" path="res://Assets/Spritesheet/platformerPack_character.png" id="2_q0cxm"]
@@ -26,7 +26,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_57bci")
 }],
-"loop": true,
+"loop": 1,
 "name": &"Idle",
 "speed": 5.0
 }, {
@@ -34,7 +34,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_y2um1")
 }],
-"loop": true,
+"loop": 1,
 "name": &"Jump",
 "speed": 5.0
 }, {
@@ -45,7 +45,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_k3yh2")
 }],
-"loop": true,
+"loop": 1,
 "name": &"Walk",
 "speed": 5.0
 }]
@@ -65,19 +65,19 @@ colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tvbjh"]
 size = Vector2(58, 69)
 
-[node name="Player" type="CharacterBody2D" groups=["Player"]]
+[node name="Player" type="CharacterBody2D" unique_id=1520831269 groups=["Player"]]
 script = ExtResource("1_qt7d6")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1625317388]
 position = Vector2(0, -48)
 sprite_frames = SubResource("SpriteFrames_4nss6")
 animation = &"Walk"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=907559164]
 position = Vector2(2.08165e-12, -33)
 shape = SubResource("CapsuleShape2D_n4sts")
 
-[node name="ParticleTrails" type="CPUParticles2D" parent="."]
+[node name="ParticleTrails" type="CPUParticles2D" parent="." unique_id=529542704]
 position = Vector2(2.08165e-12, -6)
 emitting = false
 amount = 20
@@ -95,7 +95,7 @@ scale_amount_max = 0.6
 scale_amount_curve = SubResource("Curve_m2jh0")
 color_ramp = SubResource("Gradient_3gc37")
 
-[node name="DeathParticles" type="CPUParticles2D" parent="."]
+[node name="DeathParticles" type="CPUParticles2D" parent="." unique_id=1930973517]
 position = Vector2(2.08165e-12, -33)
 emitting = false
 amount = 20
@@ -115,10 +115,10 @@ scale_amount_max = 30.0
 scale_amount_curve = SubResource("Curve_m2jh0")
 color_ramp = SubResource("Gradient_3gc37")
 
-[node name="Collision" type="Area2D" parent="."]
+[node name="Collision" type="Area2D" parent="." unique_id=788134687]
 position = Vector2(2.08165e-12, -48)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Collision"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collision" unique_id=957410214]
 position = Vector2(0, 14.5)
 shape = SubResource("RectangleShape2D_tvbjh")
 
