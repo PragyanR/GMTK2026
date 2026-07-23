@@ -14,16 +14,13 @@ func add_score():
 func load_next_level(next_scene : PackedScene):
 	get_tree().change_scene_to_packed(next_scene)
 	
-# new code	
+# body spawning	
 var last_death_location: Vector2 = Vector2.ZERO
 var death_history: Array[Vector2] = []
 
 func record_death(location: Vector2) -> void:
 	last_death_location = location
 	death_history.append(location)
-	
-
-	
 	
 func spawn_body(Pos: Vector2):
 	if num_bodies < 8:
@@ -39,3 +36,7 @@ func spawn_body(Pos: Vector2):
 		lives = 9
 		num_bodies = 0
 		get_tree().call_group("spawned_bodies", "queue_free")
+
+
+	
+	

@@ -25,12 +25,6 @@ func chocolate_hover(delta):
 	
 	
 func _on_body_entered(body):
-	push_warning("in1")
 	if body.is_in_group("Player"):
-		push_warning("in2")
-		var death_location: Vector2 = global_position
-		player_died.emit(death_location)
-		AudioManager.death_sfx.play()
-		#death_particles.emitting = true
-		GameManager.spawn_body(global_position)
-	#global_position = spawn_point.global_position
+		await get_tree().create_timer(1.0).timeout
+		visible = false

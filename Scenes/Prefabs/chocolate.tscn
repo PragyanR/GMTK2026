@@ -6,7 +6,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hkdcs"]
 size = Vector2(61, 56)
 
-[node name="Chocolate" type="Area2D" unique_id=1070552759]
+[node name="Chocolate" type="Area2D" unique_id=1070552759 groups=["Chocolate"]]
 script = ExtResource("1_fif1u")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=2122093047]

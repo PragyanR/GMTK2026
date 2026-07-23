@@ -2,7 +2,6 @@ extends CharacterBody2D
 
 # --------- VARIABLES ---------- #
 # GlobalUtils.gd
-class_name player
 
 @export_category("Player Properties") # You can tweak these changes according to your likings
 @export var move_speed : float = 400
@@ -144,4 +143,7 @@ func death_manager():
 # Reset the player's position to the current level spawn point if collided with any trap
 func _on_collision_body_entered(body):
 	if body.is_in_group("Traps"):
+		death_manager()
+	if body.is_in_group("Chocolate"):
+		#await get_tree().create_timer(5.0).timeout
 		death_manager()

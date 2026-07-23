@@ -44,6 +44,7 @@ enabled=PackedStringArray()
 [global_group]
 
 Traps=""
+Chocolate=""
 
 [input]
 
