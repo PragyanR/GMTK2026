@@ -20,7 +20,7 @@ var movement_enabled : bool = true
 @onready var particle_trails = $ParticleTrails
 @onready var death_particles = $DeathParticles
 
-
+signal player_died(death_position: Vector2)
 
 # --------- BUILT-IN FUNCTIONS ---------- #
 
@@ -130,12 +130,14 @@ func jump_tween():
 	tween.tween_property(self, "scale", Vector2.ONE, 0.1)
 
 func death_manager():
+	var death_location: Vector2 = global_position
+	player_died.emit(death_location)
 	AudioManager.death_sfx.play()
 	death_particles.emitting = true
 	GameManager.spawn_body(global_position)
 	death_tween()
 	
-# --------- SIGNALS ---------- #
+# --------- SIGNALS ---------- #›
 
 # Reset the player's position to the current level spawn point if collided with any trap
 func _on_collision_body_entered(body):
